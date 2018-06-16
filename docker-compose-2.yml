@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  result:
+    build: ./result
+    command: /usr/bin/ax run --ports 80:5001 nodemon server.js
+    privileged: true
+    volumes:
+     - ./result:/app
+     - /var/run/appswitch:/var/run/appswitch
+     - /usr/bin/ax:/usr/bin/ax
+    network_mode: none
+
+  worker:
+    build:
+      context: ./worker
+    command: /usr/bin/ax run dotnet src/Worker/Worker.dll
+    privileged: true
+    volumes:
+     - /var/run/appswitch:/var/run/appswitch
+     - /usr/bin/ax:/usr/bin/ax
+    depends_on:
+      - "redis"
+    network_mode: none
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    privileged: true
+    command: /usr/bin/ax run --name redis redis-server
+    volumes:
+     - /var/run/appswitch:/var/run/appswitch
+     - /usr/bin/ax:/usr/bin/ax
+    network_mode: none

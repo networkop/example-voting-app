@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  vote:
+    build: ./vote
+    command: /usr/bin/ax run --ports 80:5000 python app.py
+    privileged: true
+    volumes:
+     - ./vote:/app
+     - /var/run/appswitch:/var/run/appswitch
+     - /usr/bin/ax:/usr/bin/ax
+    network_mode: none
+
+  db:
+    image: postgres:9.4
+    container_name: db
+    privileged: true
+    entrypoint:  /usr/bin/ax run --name db docker-entrypoint.sh
+    command: postgres
+    volumes:
+     - /var/run/appswitch:/var/run/appswitch
+     - /usr/bin/ax:/usr/bin/ax
+    network_mode: none
+
