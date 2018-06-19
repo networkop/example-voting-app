@@ -9,6 +9,7 @@ services:
      - ./vote:/app
      - /var/run/appswitch:/var/run/appswitch
      - /usr/bin/ax:/usr/bin/ax
+     - /var/run/appswitch/appswitch-resolv.conf:/etc/resolv.conf
     network_mode: none
 
   db:
@@ -20,5 +21,6 @@ services:
     volumes:
      - /var/run/appswitch:/var/run/appswitch
      - /usr/bin/ax:/usr/bin/ax
+     - /var/run/appswitch/appswitch-resolv.conf:/etc/resolv.conf
     network_mode: none
 
