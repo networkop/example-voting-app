@@ -3,7 +3,7 @@ version: "3"
 services:
   vote:
     build: ./vote
-    command: /usr/bin/ax run --ports 80:5000 python app.py
+    command: /usr/bin/ax run --expose 80:5000 python app.py
     privileged: true
     volumes:
      - ./vote:/app

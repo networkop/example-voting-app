@@ -3,7 +3,7 @@ version: "3"
 services:
   result:
     build: ./result
-    command: /usr/bin/ax run --ports 80:5001 nodemon server.js
+    command: /usr/bin/ax run --expose 80:5001 nodemon server.js
     privileged: true
     volumes:
      - ./result:/app
